@@ -4,8 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Post {
 
 	@Id
@@ -17,26 +21,6 @@ public class Post {
 	public Post(String title, String text) {
 		this.title = title;
 		this.text = text;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	protected Post() {
