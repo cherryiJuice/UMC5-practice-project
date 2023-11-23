@@ -1,7 +1,11 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.domain.Member;
+import com.example.demo.repository.MemberRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,16 +21,21 @@ import com.example.demo.repository.PostRepository;
 public class PostService {
 
 	private final PostRepository postRepository;
+	private final MemberRepository memberRepository;
 
 	@Autowired
-	public PostService(PostRepository postRepository) {
+	public PostService(PostRepository postRepository, MemberRepository memberRepository) {
 		this.postRepository = postRepository;
+		this.memberRepository = memberRepository;
 	}
 
 
 	@Transactional
 	public Long post(PostRequest request) {
-		Post post = new Post(request.getTitle(), request.getText());
+		Member member = memberRepository.findById(request.getMemberId()).get();
+		// LAZY LOADING <-> EAGER LOADING
+//		List<Post> posts = member.getPostList();
+		Post post = new Post(request.getTitle(), request.getText(), member);
 		Post savedPost = postRepository.save(post);
 		return savedPost.getId();
 	}

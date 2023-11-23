@@ -16,19 +16,19 @@
 
  	private final MemberService memberService;
 
-     @PostMapping("/users/join")
+     @PostMapping("/members/join")
      public String join(@RequestBody SignUpRequest request) {
-         memberService.join(request);
-         return "success";
+         Long memberId = memberService.join(request);
+         return memberId.toString();
      }
 
 
- 	@GetMapping("/users")
+ 	@GetMapping("/members")
  	public MemberDto getMemberDto(Long memberId) {
         return memberService.findById(memberId);
     }
 
- 	@PatchMapping("/users")
+ 	@PatchMapping("/members")
  	public MemberUpdateResponse update(
  		@RequestBody MemberUpdateRequest request
  	) {

@@ -17,13 +17,14 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 
 	@Transactional
-	public void join(SignUpRequest request) {
+	public Long join(SignUpRequest request) {
 		Member member = Member.builder()
 				.name(request.getName())
 				.age(request.getAge())
 				.gender(request.getGender())
 				.build();
 		memberRepository.save(member);
+		return member.getId();
 	}
 
 	@Transactional

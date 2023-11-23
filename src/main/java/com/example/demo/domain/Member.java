@@ -4,6 +4,9 @@ package com.example.demo.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Member의 구성요소 - id, 이름, 닉네임, 나이, 성별
 @Entity
 @Getter
@@ -22,6 +25,9 @@ public class Member {
 
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
+
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	private List<Post> postList = new ArrayList<>();
 
 	@Builder
 	public Member(String name, Integer age, Gender gender) {
